@@ -209,7 +209,24 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(collection, func){
+    //create an output array
+    const output = [];
+    //determine if collection is an array
+    if (Array.isArray(collection)) {
+        for (let i = 0; i < collection.length; i++) {
+            output.push(func(collection[i], i, collection));
+        }
+    } else if (typeof collection === "object" && collection !== null) {
+        for (let key in collection) {
+            if (collection.hasOwnProperty(key)) {
+                output.push(func(collection[key], key, collection));
+            }
+        }
+    }
 
+    return output;
+}
 /** _.pluck
 * Arguments:
 *   1) An array of objects

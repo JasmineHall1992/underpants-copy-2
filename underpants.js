@@ -56,7 +56,7 @@ _.typeOf = function(value){
     } else {
         return typeof value;
     }
-}
+};
 
 /** _.first
 * Arguments:
@@ -75,7 +75,23 @@ _.typeOf = function(value){
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
-
+//I: takes in an array, number
+//O: return an empty array, return the first element in the array, otherwise return the first number
+//E: account for if the number is negative, or if it is greater than array.length
+_.first = function(array, number){
+    const output = [];
+    if (!array.isArray(array)){
+        return output;
+    } else if (number === undefined || number === NaN) {
+        return array[0];
+    } else if (number < 0){
+        return output;
+    } else if (number > array.length){
+        return array;
+    } else {
+        return array.slice(0, number);
+    }
+}
 
 /** _.last
 * Arguments:

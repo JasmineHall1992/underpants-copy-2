@@ -21,6 +21,9 @@ var _ = {};
 *   _.identity({a: "b"}) === {a: "b"}
 */
 
+_.identity = function(value){
+    return value;
+}
 
 /** _.typeOf
 * Arguments:
@@ -41,7 +44,19 @@ var _ = {};
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-
+//I: value
+//O: the type of value as a string
+_.typeOf = function(value){
+    if (Array.isArray(value)) {
+        return "array"; 
+    } else if (value === null) {
+        return "null";
+    } else if (typeof value === "object") {
+        return "object";
+    } else {
+        return typeof value;
+    }
+}
 
 /** _.first
 * Arguments:

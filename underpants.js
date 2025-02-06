@@ -78,20 +78,35 @@ _.typeOf = function(value){
 //I: takes in an array, number
 //O: return an empty array, return the first element in the array, otherwise return the first number
 //E: account for if the number is negative, or if it is greater than array.length
-_.first = function(array, number){
+_.first = function(array, number) {
     const output = [];
-    if (!array.isArray(array)){
+
+    // Check if array is actually an array; if not, return an empty array
+    if (!Array.isArray(array)) {
         return output;
-    } else if (number === undefined || number === NaN) {
-        return array[0];
-    } else if (number < 0){
-        return output;
-    } else if (number > array.length){
-        return array;
-    } else {
-        return array.slice(0, number);
     }
-}
+
+    // If number is not given or is not a valid number, return the first element
+    else if (number === undefined || number === NaN) {
+        return array[0];
+    }
+
+    // If number is negative, return an empty array
+    else if (number < 0) {
+        return output;
+    }
+
+    // If number is greater than array length, return the whole array
+    else if (number > array.length) {
+        return array;
+    }
+
+    // Otherwise, return the first 'number' elements
+    return array.slice(0, number);
+};
+
+
+
 
 /** _.last
 * Arguments:
@@ -110,6 +125,32 @@ _.first = function(array, number){
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
+_.last = function(array, number) {
+    const output = [];
+
+    // Check if array is actually an array; if not, return an empty array
+    if (!Array.isArray(array)) {
+        return output;
+    }
+
+    // If number is not given or is not a valid number, return the last element
+    else if (number === undefined || number === NaN) {
+        return array[array.length - 1];
+    }
+
+    // If number is negative, return an empty array
+    else if (number < 0) {
+        return output;
+    }
+
+    // If number is greater than array length, return the whole array
+    else if (number > array.length) {
+        return array;
+    }
+
+    // Otherwise, return the last 'number' elements
+    return array.slice(-number);
+};
 
 
 /** _.indexOf
@@ -127,7 +168,19 @@ _.first = function(array, number){
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
-
+//I: an array,a value
+//O: return the index of array that is the first occurance of value, return - 1 if value is not an array
+//E: what if array has multiple occurances of val
+//E: what if val is not an array
+_.indexOf = function(array, value){
+    for (let i = 0; i < array.length; i++){
+        if (array[i] === value){
+            return array[i];
+        } else if (!Array.isArray(value)){
+            return -1;
+        }
+    }
+}
 
 /** _.contains
 * Arguments:
@@ -348,6 +401,10 @@ _.map = function(collection, func){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+_.extend = function(target, ...objects){
+    ß
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////

@@ -432,7 +432,24 @@ _.pluck = function(array, property){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
-
+_.every = function(collection, func){
+    if (!func) {
+        func = (value) => Boolean(value); // This checks if a value is truthy
+    }
+    if (Array.isArray(collection)){
+        for (let i = 0; i < collection.length; i++){
+            if(!func(collection[i], i, collection)){
+            return false;;
+        } 
+    }
+} else if (typeof collection === 'object'){
+    for (let key in collection){
+        if(!func(collection[key], key, collection))
+        return false;
+    }
+}   
+    return true;
+};
 
 /** _.some
 * Arguments:

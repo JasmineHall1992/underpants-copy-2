@@ -226,6 +226,24 @@ _.contains = function(array, value){
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
+_.each = function(collection, func) {
+    // Check if the collection is an array
+    if (Array.isArray(collection)) {
+        // Iterate over the array
+        for (let i = 0; i < collection.length; i++) {
+            // Call the function with the current value, index, and collection
+            func(collection[i], i, collection);
+        }
+    } else if (typeof collection === 'object') {
+        // Iterate over an object
+        for (let key in collection) {
+            if (collection[key]) {
+                // Call the function with the current value, key, and collection
+                func(collection[key], key, collection);
+            }
+        }
+    }
+};
 
 
 /** _.unique
@@ -237,6 +255,24 @@ _.contains = function(array, value){
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
+_.unique = function(array) {
+    // Create a new array to store unique values
+    const uniqueArray = [];
+
+    // Iterate through the input array
+    for (let i = 0; i < array.length; i++) {
+        // Check if the current value is not already in the uniqueArray
+        if (_.indexOf(uniqueArray, array[i]) === -1) {
+            // If it's not, add it to the uniqueArray
+            uniqueArray.push(array[i]);
+        }
+    }
+
+    // Return the array with duplicates removed
+    return uniqueArray;
+};
+
+
 
 
 /** _.filter
@@ -254,6 +290,22 @@ _.contains = function(array, value){
 * Extra Credit:
 *   use _.each in your implementation
 */
+_.filter = function(array, func) {
+    // Create a new array to store the elements that pass the condition
+    const filteredArray = [];
+
+    // Use _.each to iterate over the array
+    _.each(array, function(element, index, collection) {
+        // Call the provided function with element, index, and array
+        if (func(element, index, collection)) {
+            // If the function returns true, add the element to the filteredArray
+            filteredArray.push(element);
+        }
+    });
+
+    // Return the new array with filtered elements
+    return filteredArray;
+};
 
 
 /** _.reject
@@ -268,6 +320,13 @@ _.contains = function(array, value){
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
+_.reject = function(array, func) {
+    // Use _.filter but invert the condition
+    return _.filter(array, function(element, index, collection) {
+        // Return elements where the function result is false
+        return !func(element, index, collection);
+    });
+};
 
 
 /** _.partition
@@ -288,6 +347,20 @@ _.contains = function(array, value){
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+_.partition = function(array, func) {
+    // Create two empty arrays: one for truthy values, one for falsy values
+    const truthyArray = [];
+    const falsyArray = [];
+
+    // Iterate through the array
+    _.each(array, function(element, index, collection) {
+        // Call the function and push the element into the appropriate array
+        func(element, index, collection) ? truthyArray.push(element) : falsyArray.push(element);
+    });
+
+    // Return an array containing both subarrays
+    return [truthyArray, falsyArray];
+};
 
 
 /** _.map

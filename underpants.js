@@ -549,9 +549,21 @@ _.reduce = function(array, func, seed){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
-
+///... is a spread operator
 _.extend = function(target, ...objects){
-    ß
+    //loop through the array of objects
+    for (let i = 0; i < objects.length; i++){
+    //make a current singular obkect by accessing index
+    let object = objects[i];
+    //loop through the properties in the individual object now
+    for (let key in object){
+        //check to see if object has a specific property that is its own instead of another that has been added to prototype
+        if (object.hasOwnProperty(key)){
+            target[key] = object[key];
+        }
+    }
+    }
+    return target;
 }
 
 //////////////////////////////////////////////////////////////////////

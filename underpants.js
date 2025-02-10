@@ -407,7 +407,10 @@ _.map = function(collection, func){
 * Examples:
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
-
+//return using map, map over array, and objects within the array, return the value of every value of the property for each element
+_.pluck = function(array, property){
+    return _.map(array, object => object[property])
+};
 
 /** _.every
 * Arguments:

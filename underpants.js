@@ -172,15 +172,19 @@ _.last = function(array, number) {
 //O: return the index of array that is the first occurance of value, return - 1 if value is not an array
 //E: what if array has multiple occurances of val
 //E: what if val is not an array
-_.indexOf = function(array, value){
-    for (let i = 0; i < array.length; i++){
-        if (array[i] === value){
-            return array[i];
-        } else if (!Array.isArray(value)){
-            return -1;
+_.indexOf = function(array, value) {
+    // Loop through the array
+    for (let i = 0; i < array.length; i++) {
+        // Check if the current element matches the value
+        if (array[i] === value) {
+            return i; // Return the index if found
         }
     }
+    // Return -1 if the value is not found in the array
+    return -1;
 }
+
+
 
 /** _.contains
 * Arguments:
@@ -196,8 +200,17 @@ _.indexOf = function(array, value){
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-
-
+//I: an array and value
+//O: true if array contains value, false otherwise
+//E: use ternary do not use strictly, return false if there is no value
+_.contains = function(array, value){
+    //cycle through the array
+    for (let i = 0; i < array.length; i++){
+        if (array[i] === value) return true;
+    }
+    //if no match is found return false
+    return false;
+};
 /** _.each
 * Arguments:
 *   1) A collection

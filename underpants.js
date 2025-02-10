@@ -471,7 +471,30 @@ _.every = function(collection, func){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+_.some = function(collection, func){
+    //check to see if func doesnt return a boolean
+    if(!func){
+        func = (value) => Boolean(value);//this checks if the function doesnt return a booleans
+    }
+    //check to see if the function is an array
+    if(Array.isArray(collection)){
+        //loop through it
+        for (let i = 0; i < collection.length; i++){
+            if (func(collection[i], i, collection)){
+                return true;
+            }
+        }
+    } else if (typeof collection === 'object'){
+        for (let key in collection){
+            if (func(collection[key], key, collection)){
+                return true;
+            }
+        }
 
+    }
+    return false;
+
+};
 
 /** _.reduce
 * Arguments:
